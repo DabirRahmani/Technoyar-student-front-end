@@ -1,21 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+
+import {
+  Button,
+  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+  View,
+  Alert,
+} from "react-native";
+import {
+  LargeMainButton,
+  MeduimMainButton,
+  SmallMainButton,
+} from "./src/components/MainButtons";
+import MainButton from "./src/components/MainButtons";
+import { colors } from "./src/configs";
+import MainScreen from "./src/screens/mainScreen";
+import MainBox from "./src/components/MainBox";
+import MainTitleTexts from "./src/components/MainTexts";
+import MainTexts from "./src/components/MainTexts";
+import strings from "./src/strings";
+import LoginScreen from "./src/screens/loginScreen";
+import HomeScreen from "./src/screens/homeScreen";
 
 export default function App() {
+  const sstack = createStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <sstack.Navigator screenOptions={{ headerMode: "none" }}>
+        <sstack.Screen name="login" component={LoginScreen} />
+        <sstack.Screen name="home" component={HomeScreen} />
+      </sstack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
