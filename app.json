@@ -1,29 +1,29 @@
 {
   "expo": {
-    "name": "technoyar_front_end",
+    "name": "Techno Yar",
     "slug": "technoyar_front_end",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
+    "icon": "./src/assets/loadinglogo.png",
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "./src/assets/loadinglogo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0e1621"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./src/assets/loadinglogo.png",
+        "backgroundColor": "#0e1621"
+      },
+      "package": "com.technoyar.studentpancion",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./src/assets/favicon.png"

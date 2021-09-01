@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import RefreshRequest from "./auth/refresh";
 import MainAxios from "./MainAxios";
 
-const ReportRequest = ({ datacaller }) => {
+const AdminDetailsRequest = ({ datacaller }) => {
   const tokenGenerator = ({ token, err }) => {
     if (err) {
       datacaller({ err: true });
@@ -13,15 +13,15 @@ const ReportRequest = ({ datacaller }) => {
       };
 
       MainAxios()
-        .get("/mentors/get14report", config)
+        .get("/parent/get-admin", config)
         .then((e) => {
           datacaller(e.data);
         })
-        .catch(() => datacaller("error"));
+        .catch((e) => datacaller("error"));
       //درخواست چک کردن اینترنت
     }
   };
   RefreshRequest({ calllerFunction: tokenGenerator });
 };
 
-export default ReportRequest;
+export default AdminDetailsRequest;

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 12,
     backgroundColor: colors.lightLayerBackGround,
-    padding: 12,
+    padding: 8,
     flex: 1,
   },
 });

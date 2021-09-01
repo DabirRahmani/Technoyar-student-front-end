@@ -1,8 +1,16 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import { View, StyleSheet, Modal, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Modal,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { colors } from "../configs";
 import MainScreen from "../screens/mainScreen";
 import { MeduimMainButton } from "./MainButtons";
+import MainTexts from "./MainTexts";
 
 const MainPicker = ({ visibalityStatus, changeStatus, dataView }) => {
   return (
@@ -15,16 +23,31 @@ const MainPicker = ({ visibalityStatus, changeStatus, dataView }) => {
       }}
     >
       <MainScreen>
-        <View
-          style={{ backgroundColor: colors.background, flex: 1, padding: 16 }}
-        >
-          <MeduimMainButton
-            title="بازگشت"
-            onPress={() => {
-              changeStatus(false);
+        <View style={{ backgroundColor: colors.background, flex: 1 }}>
+          <View
+            style={{
+              marginBottom: 8,
+              marginHorizontal: 16,
+              marginTop: 8,
             }}
-          />
-          <ScrollView style={{ marginTop: 8 }}>{dataView()}</ScrollView>
+          >
+            <TouchableOpacity
+              style={{ flexDirection: "row", alignItems: "center" }}
+              onPress={() => {
+                changeStatus(false);
+              }}
+            >
+              <MaterialCommunityIcons
+                name="chevron-left"
+                size={30}
+                color={colors.titlePrimary}
+              />
+              <MainTexts.MainTitleTexts title="بازگشت" />
+            </TouchableOpacity>
+          </View>
+          <ScrollView style={{ marginTop: 8, paddingHorizontal: 32 }}>
+            {dataView()}
+          </ScrollView>
         </View>
       </MainScreen>
     </Modal>

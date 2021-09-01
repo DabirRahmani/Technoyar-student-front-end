@@ -3,25 +3,31 @@ import { View, StyleSheet } from "react-native";
 import RefreshRequest from "./auth/refresh";
 import MainAxios from "./MainAxios";
 
-const ReportRequest = ({ datacaller }) => {
+const PostMessage = ({ responseCaller, receiver, message }) => {
   const tokenGenerator = ({ token, err }) => {
     if (err) {
-      datacaller({ err: true });
+      responseCaller({ err: true });
     } else {
       const config = {
         headers: { Authorization: `Bearer ${token}` },
       };
 
       MainAxios()
-        .get("/mentors/get14report", config)
+        .post(
+          "/parent/postmessage/",
+          { receiver: receiver, message: message },
+          config
+        )
         .then((e) => {
-          datacaller(e.data);
+          if (e.status === 200) {
+            responseCaller({ status: 200, response: e.data });
+          }
         })
-        .catch(() => datacaller("error"));
+        .catch(() => responseCaller("error"));
       //درخواست چک کردن اینترنت
     }
   };
   RefreshRequest({ calllerFunction: tokenGenerator });
 };
 
-export default ReportRequest;
+export default PostMessage;

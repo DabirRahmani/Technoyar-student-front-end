@@ -24,7 +24,6 @@ const LoginRequest = ({ username, password, setter, loginBtnStatus }) => {
     })
     .catch((e) => {
       if (e.response !== undefined) {
-        //console.log(e.response);
         setter("3"); //wrong inputs
         loginBtnStatus(false);
       } else {

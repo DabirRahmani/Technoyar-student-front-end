@@ -1,10 +1,8 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
 import RefreshRequest from "./auth/refresh";
 import MainAxios from "./MainAxios";
 
-const ReportRequest = ({ datacaller }) => {
-  const tokenGenerator = ({ token, err }) => {
+const ExplainRequest = ({ datacaller }) => {
+  const TokenGenerator = ({ token, err }) => {
     if (err) {
       datacaller({ err: true });
     } else {
@@ -13,15 +11,18 @@ const ReportRequest = ({ datacaller }) => {
       };
 
       MainAxios()
-        .get("/mentors/get14report", config)
+        .get("/mentors/get14additionalExplanations", config)
         .then((e) => {
           datacaller(e.data);
         })
-        .catch(() => datacaller("error"));
+        .catch((e) => {
+          datacaller("error");
+        });
       //درخواست چک کردن اینترنت
     }
   };
-  RefreshRequest({ calllerFunction: tokenGenerator });
+
+  RefreshRequest({ calllerFunction: TokenGenerator });
 };
 
-export default ReportRequest;
+export default ExplainRequest;

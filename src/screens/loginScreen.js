@@ -12,6 +12,7 @@ import {
   View,
   Alert,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import {
@@ -44,19 +45,36 @@ export default LoginScreen = ({ navigation }) => {
   const [loginSnackStatus, setLoginSnackStatus] = useState(false);
   const [localerr, setLocalerr] = useState("");
 
+  /*
+تغییر صفحه از لاگین به هوم
+*/
   useEffect(() => {
     if (loginStatus !== "") setLoginSnackStatus(true);
 
     if (loginStatus === "1") nnavigator.replace("home");
   }, [loginStatus, btnStatus, localerr]);
 
+  /*
+هر ارور خارجی که باعث بشه اپ از حالت لاگین شده خارج شود
+اینجا بررسی خواهد شد
+logout, tokenerror, refresherror, ...
+تا با اسنک پیام نشان داده شود
+*/
   useEffect(() => {
     if (response !== undefined)
       if (response.err === "refreshError") {
         setLoginStatus("6");
+      } else if (response.logout === true) {
+        setLoginStatus("7");
       }
-  });
+  }, [response]);
 
+  /*
+اسنک با توجه به وضعیت
+loginstatus
+تعریف خواهد شد
+بعد از درخواست برای ورود
+*/
   const CreateSnack = () => {
     switch (loginStatus) {
       case "4":
@@ -109,6 +127,16 @@ export default LoginScreen = ({ navigation }) => {
           <MainSnack
             title="خطا در توکن دریافتی، لطفا مجددا وارد شوید."
             danger
+            status={loginSnackStatus}
+            setter={setLoginSnackStatus}
+          />
+        );
+
+      case "7":
+        return (
+          <MainSnack
+            title="با موفقیت از حساب کاربری خارج شدید"
+            info
             status={loginSnackStatus}
             setter={setLoginSnackStatus}
           />
@@ -187,7 +215,7 @@ export default LoginScreen = ({ navigation }) => {
       />
 
       <View style={{ marginTop: 24 }}>
-        <MeduimMainButton
+        <LargeMainButton
           title={strings.login}
           onPress={() => {
             Login();
@@ -257,9 +285,14 @@ export default LoginScreen = ({ navigation }) => {
   return (
     <MainScreen>
       <ImageBackground
-        style={{ flex: 1 }}
+        style={{
+          flex: 1,
+          width: Dimensions.get("window").width,
+          height: Dimensions.get("window").height,
+        }}
         blurRadius={1}
         source={require("../assets/loginback.jpg")}
+        resizeMode="contain"
       >
         <ScrollView>
           <View style={{ alignItems: "center", flex: 1 }}>

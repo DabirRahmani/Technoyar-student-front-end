@@ -10,23 +10,34 @@ import {
 import { colors } from "../configs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const MainButton = ({ onPress, title, size, disable }) => {
+const MainButton = ({
+  onPress,
+  title,
+  size,
+  disable,
+  backgroundColor = colors.complementBoldThird,
+}) => {
   var op = 1;
   if (disable === true) {
     op = 0.5;
   }
 
+  var underlayColor = colors.complementBoldThirdOnPressEffect;
+
+  if (backgroundColor === colors.danger) {
+    underlayColor = "#fa5757";
+  }
   return (
     <View
       style={{
-        backgroundColor: colors.complementBoldThird,
+        backgroundColor: backgroundColor,
         borderRadius: size,
         overflow: "hidden",
         opacity: op,
       }}
     >
       <TouchableHighlight
-        underlayColor={colors.complementBoldThirdOnPressEffect}
+        underlayColor={underlayColor}
         activeOpacity={1}
         disabled={disable}
         onPress={onPress}
@@ -49,16 +60,36 @@ const MainButton = ({ onPress, title, size, disable }) => {
   );
 };
 
-const SmallMainButton = ({ title, onPress, disable }) => (
-  <MainButton title={title} onPress={onPress} disable={disable} size={8} />
+const SmallMainButton = ({ title, onPress, disable, backgroundColor }) => (
+  <MainButton
+    title={title}
+    backgroundColor={backgroundColor}
+    onPress={onPress}
+    disable={disable}
+    size={6}
+  />
 );
 
-const MeduimMainButton = ({ title, onPress, disable }) => (
-  <MainButton title={title} onPress={onPress} disable={disable} size={12} />
-);
+const MeduimMainButton = ({ title, onPress, disable, backgroundColor }) => {
+  return (
+    <MainButton
+      title={title}
+      onPress={onPress}
+      disable={disable}
+      size={8}
+      backgroundColor={backgroundColor}
+    />
+  );
+};
 
-const LargeMainButton = ({ title, onPress, disable }) => (
-  <MainButton title={title} onPress={onPress} disable={disable} size={16} />
+const LargeMainButton = ({ title, onPress, disable, backgroundColor }) => (
+  <MainButton
+    backgroundColor={backgroundColor}
+    title={title}
+    onPress={onPress}
+    disable={disable}
+    size={10}
+  />
 );
 
 const MainIconButton = ({

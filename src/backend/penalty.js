@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import RefreshRequest from "./auth/refresh";
 import MainAxios from "./MainAxios";
 
-const ReportRequest = ({ datacaller }) => {
+const PenaltyRequest = ({ datacaller }) => {
   const tokenGenerator = ({ token, err }) => {
     if (err) {
       datacaller({ err: true });
@@ -13,7 +13,7 @@ const ReportRequest = ({ datacaller }) => {
       };
 
       MainAxios()
-        .get("/mentors/get14report", config)
+        .get("/mentors/get14penalties", config)
         .then((e) => {
           datacaller(e.data);
         })
@@ -24,4 +24,4 @@ const ReportRequest = ({ datacaller }) => {
   RefreshRequest({ calllerFunction: tokenGenerator });
 };
 
-export default ReportRequest;
+export default PenaltyRequest;
