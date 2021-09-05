@@ -1,5 +1,4 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
 
 const ConvertNumberToTime = ({ number }) => {
   if (number === null || number === undefined) return "0:00";

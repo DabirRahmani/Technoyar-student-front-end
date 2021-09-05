@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Modal, Text } from "react-native";
+import { View, Modal } from "react-native";
 import MainScreen from "../screens/mainScreen";
 import MainTexts from "./MainTexts";
 

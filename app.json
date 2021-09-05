@@ -2,7 +2,7 @@
   "expo": {
     "name": "Techno Yar",
     "slug": "technoyar_front_end",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./src/assets/loadinglogo.png",
     "splash": {

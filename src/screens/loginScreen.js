@@ -1,39 +1,26 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   Image,
   ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
   TextInput,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   View,
   Alert,
   ImageBackground,
   Dimensions,
 } from "react-native";
-import * as SecureStore from "expo-secure-store";
-import {
-  LargeMainButton,
-  MainIconButton,
-  MeduimMainButton,
-  SmallMainButton,
-} from "../components/MainButtons";
+import { LargeMainButton } from "../components/MainButtons";
 import { colors } from "../configs";
 import MainScreen from "../screens/mainScreen";
 import MainBox from "../components/MainBox";
-import MainTitleTexts from "../components/MainTexts";
 import MainTexts from "../components/MainTexts";
 import strings from "../strings";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import LoginRequest from "../backend/auth/login";
-import axios from "axios";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import MainSnack from "../components/MainSnack";
+import Constants from "expo-constants";
 
-export default LoginScreen = ({ navigation }) => {
+export default LoginScreen = () => {
   const nnavigator = useNavigation();
 
   const response = useRoute().params;
@@ -151,15 +138,16 @@ loginstatus
       style={{
         width: "80%",
         height: 150,
-        marginTop: 150,
+        marginTop: 50,
+        marginBottom: 100,
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 75,
       }}
     >
       <Image
-        source={require("../assets/logo.png")}
-        resizeMode="contain"
+        source={require("../assets/loadinglogo.png")}
+        resizeMode="cover"
         style={{ width: "100%", height: "100%" }}
       />
     </View>
@@ -292,13 +280,17 @@ loginstatus
         }}
         blurRadius={1}
         source={require("../assets/loginback.jpg")}
-        resizeMode="contain"
+        resizeMode="cover"
       >
         <ScrollView>
           <View style={{ alignItems: "center", flex: 1 }}>
             {CreateLogo()}
 
             {CreateOther()}
+
+            <MainTexts.MainSecoonderyContextSubTexts
+              title={"V " + Constants.manifest.version}
+            />
           </View>
         </ScrollView>
       </ImageBackground>

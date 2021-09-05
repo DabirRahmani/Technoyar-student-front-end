@@ -1,26 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
 import MainBox from "./MainBox";
 import MainTexts from "./MainTexts";
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryAxis,
-  VictoryTheme,
-} from "victory-native";
-import { colors } from "../configs";
 
-const data = [
-  { date: "11", earnings: 4 },
-  { date: "12", earnings: 5 },
-  { date: "13", earnings: 1 },
-  { date: "14", earnings: 0 },
-  { date: "15", earnings: 2 },
-  { date: "16", earnings: 4 },
-  { date: "17", earnings: 6 },
-  { date: "18", earnings: 7 },
-  { date: "19", earnings: 9.75 },
-];
+import { colors } from "../configs";
 
 const Bar = ({ height, secondHeight }) => {
   var v = height * 100;

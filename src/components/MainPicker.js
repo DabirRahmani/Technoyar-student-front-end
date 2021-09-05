@@ -1,15 +1,8 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Modal,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, Modal, ScrollView, TouchableOpacity } from "react-native";
 import { colors } from "../configs";
 import MainScreen from "../screens/mainScreen";
-import { MeduimMainButton } from "./MainButtons";
 import MainTexts from "./MainTexts";
 
 const MainPicker = ({ visibalityStatus, changeStatus, dataView }) => {

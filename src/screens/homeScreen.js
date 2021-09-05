@@ -1,31 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Modal,
-  TouchableHighlight,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import * as SecureStore from "expo-secure-store";
-
-import RefreshRequest from "../backend/auth/refresh";
+import { View, Image, TouchableOpacity, ScrollView } from "react-native";
 import MainBox from "../components/MainBox";
-import {
-  MainIconButton,
-  MeduimMainButton,
-  SmallMainButton,
-} from "../components/MainButtons";
+import { MainIconButton } from "../components/MainButtons";
 import MainPicker from "../components/MainPicker";
 import MainTexts from "../components/MainTexts";
 import { colors } from "../configs";
 import MainScreen from "./mainScreen";
 import ReportRequest from "../backend/report";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import ReportItemPicker from "../components/ReportItemPicker";
 import ReportCards from "../components/ReportCards";
 import ConvertNumberToTime from "../components/ConvertNumberToTime";

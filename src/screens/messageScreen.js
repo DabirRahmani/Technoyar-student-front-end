@@ -3,32 +3,24 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import {
   View,
-  StyleSheet,
   Modal,
   ScrollView,
   TextInput,
   KeyboardAvoidingView,
   Image,
-  RefreshControl,
   TouchableOpacity,
-  Animated,
   Text,
   Platform,
 } from "react-native";
 import MessageRequest from "../backend/message";
 import PostMessage from "../backend/putMessage";
-import {
-  LargeMainButton,
-  MainIconButton,
-  MeduimMainButton,
-} from "../components/MainButtons";
+import { MainIconButton } from "../components/MainButtons";
 import MainTexts from "../components/MainTexts";
 import { colors } from "../configs";
 import MainScreen from "./mainScreen";
-import Swipeable from "react-native-gesture-handler/Swipeable";
 import SeenMessageRequest from "../backend/seenMessageRequest";
 
-const MessageCard = ({ title, sender, id, time, dateSetter, seen }) => {
+const MessageCard = ({ title, sender, id, time, seen }) => {
   const [copied, setCopied] = useState("");
 
   var flexdirection = "row";
@@ -37,14 +29,9 @@ const MessageCard = ({ title, sender, id, time, dateSetter, seen }) => {
 
   const TextCopied = () => {
     setCopied("پیام کپی شد");
-    dateSetter(
-      time.toString().split("T")[0].replace(/-/g, "/") +
-        " " +
-        time.toString().split("T")[1].substring(0, 5)
-    );
+
     const copytimer = setInterval(() => {
       setCopied("");
-      dateSetter("");
       clearInterval(copytimer);
     }, 2000);
   };
@@ -132,7 +119,9 @@ const MessageScreen = ({ visibalityStatus, changeStatus, user, admin }) => {
 
   const [messageDate, setMessageDate] = useState("");
 
-  const receiver = "1000";
+  const [sendPending, setSendPending] = useState(false);
+
+  const receiver = admin.username;
 
   const sender = user.username;
 
@@ -160,11 +149,37 @@ const MessageScreen = ({ visibalityStatus, changeStatus, user, admin }) => {
     if (!/\S/.test(v)) {
     } else if (!/\S/.test(vv.trim())) {
     } else {
+      setSendPending(true);
+
       PostMessage({ responseCaller: SendMessageResponse, receiver, message });
     }
   };
 
+  const CreateSendButton = () => {
+    if (sendPending)
+      return (
+        <Image
+          style={{ width: 48, height: 48 }}
+          resizeMode="contain"
+          source={require("./../assets/loading2.gif")}
+        ></Image>
+      );
+
+    return (
+      <View style={{ width: 48, height: 48 }}>
+        <MainIconButton
+          onPress={SendMessage}
+          name="send"
+          size={48}
+          iconSize={32}
+          transParent={true}
+        />
+      </View>
+    );
+  };
+
   const SendMessageResponse = (data) => {
+    setSendPending(false);
     if (data === "error") {
       settErrorMessage(true);
     } else {
@@ -184,6 +199,7 @@ const MessageScreen = ({ visibalityStatus, changeStatus, user, admin }) => {
   const RefreshMessages = () => {
     setReloadEnabled(false);
     setloaded(false);
+    setSendPending(false);
     MessageRequest({ datacaller: GetMessage });
   };
 
@@ -272,7 +288,6 @@ const MessageScreen = ({ visibalityStatus, changeStatus, user, admin }) => {
               title={m.message}
               time={m.timestamp}
               sender={m.sender.username == sender ? true : false}
-              dateSetter={setMessageDate}
               seen={m.sender.username == sender ? m.is_read : false}
             />
           ))}
@@ -397,13 +412,7 @@ const MessageScreen = ({ visibalityStatus, changeStatus, user, admin }) => {
               }
             />
 
-            <MainIconButton
-              onPress={SendMessage}
-              name="send"
-              size={48}
-              iconSize={32}
-              transParent={true}
-            />
+            {CreateSendButton()}
           </View>
         </KeyboardAvoidingView>
       </MainScreen>

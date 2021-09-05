@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Switch, Text } from "react-native";
+import { View, Switch } from "react-native";
 import { colors } from "../configs";
 import MainBox from "./MainBox";
-import {
-  LargeMainButton,
-  MainIconButton,
-  MeduimMainButton,
-  SmallMainButton,
-} from "./MainButtons";
+import { MeduimMainButton } from "./MainButtons";
 import MainTexts from "./MainTexts";
 import PaymentRenderer from "./PaymentRenderer";
 import PenaltyCard from "./PenaltyCard";

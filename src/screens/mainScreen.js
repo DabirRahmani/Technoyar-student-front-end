@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Button, StatusBar, StyleSheet, Text, View } from "react-native";
-import MainButtons from "./../components/MainButtons";
+import React from "react";
+import { StatusBar, StyleSheet, View } from "react-native";
 import { colors } from "./../configs";
 
 export default function MainScreen(probs) {

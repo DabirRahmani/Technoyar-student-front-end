@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
 import { colors } from "../configs";
 import { SmallMainButton } from "./MainButtons";
