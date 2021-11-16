@@ -14,6 +14,7 @@ const ReportCards = ({ title, time, icon }) => {
         justifyContent: "space-evenly",
         alignContent: "center",
         alignItems: "center",
+
         borderRadius: 16,
         overflow: "hidden",
         margin: 8,

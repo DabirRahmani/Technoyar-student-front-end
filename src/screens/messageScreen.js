@@ -215,11 +215,13 @@ const MessageScreen = ({ visibalityStatus, changeStatus, user, admin }) => {
 
         var vvv = vv.filter((m) => m.sender.username === receiver);
 
-        var lastmessage = vvv[vvv.length - 1];
+        if (vvv.length > 0) {
+          var lastmessage = vvv[vvv.length - 1];
 
-        if (lastmessage.is_read === false) {
-          //seen request
-          SeenMessageRequest({ id: lastmessage.id });
+          if (lastmessage.is_read === false) {
+            //seen request
+            SeenMessageRequest({ id: lastmessage.id });
+          }
         }
       }
       if (data === "error") {
@@ -313,8 +315,6 @@ const MessageScreen = ({ visibalityStatus, changeStatus, user, admin }) => {
           <View
             style={{
               marginBottom: 8,
-              marginHorizontal: 16,
-              marginTop: 8,
               justifyContent: "space-between",
               flexDirection: "row",
               alignItems: "center",

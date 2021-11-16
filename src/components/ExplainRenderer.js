@@ -25,7 +25,7 @@ const ExplainRenderer = ({ list = [] }) => {
           <ExplainCards
             key={l.id + "explain"}
             title={l.additionalExplanation}
-            submited={l.explanationViwed}
+            submited={!l.explanationViwed}
           />
         ))}
       </View>

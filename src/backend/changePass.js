@@ -21,7 +21,6 @@ const ChangePasswordRequest = ({ datacaller, oldpass, newpass }) => {
         })
         .catch((e) => {
           datacaller("error");
-          console.log(e.response);
         });
       //درخواست چک کردن اینترنت
     }

@@ -1,4 +1,4 @@
-export default strings = {
+const strings = {
   back: "بازگشت",
   forgotpassword: "رمز عبور را فراموش کرده اید؟",
   forgotpasswordalert:
@@ -7,3 +7,5 @@ export default strings = {
   username: "کد کاربری",
   login: "ورود",
 };
+
+export default strings;

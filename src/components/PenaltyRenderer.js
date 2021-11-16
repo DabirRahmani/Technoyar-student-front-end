@@ -7,7 +7,7 @@ import MainTexts from "./MainTexts";
 import PaymentRenderer from "./PaymentRenderer";
 import PenaltyCard from "./PenaltyCard";
 
-const PenaltyRenderer = ({ list = [] }) => {
+const PenaltyRenderer = ({ list = [], reload }) => {
   const [showUnPaid, setShowUnPaid] = useState(true);
   const [cart, setCart] = useState([]);
 
@@ -175,12 +175,17 @@ const PenaltyRenderer = ({ list = [] }) => {
         </View>
       </MainBox>
 
-      <PaymentRenderer
-        visibalityStatus={paymentModalStatus}
-        changeStatus={setPaymentModalStatus}
-        list={cart}
-        total={total}
-      />
+      {paymentModalStatus === true ? (
+        <PaymentRenderer
+          visibalityStatus={paymentModalStatus}
+          changeStatus={setPaymentModalStatus}
+          list={cart}
+          total={total}
+          reload={reload}
+        />
+      ) : (
+        <View></View>
+      )}
     </View>
   );
 };

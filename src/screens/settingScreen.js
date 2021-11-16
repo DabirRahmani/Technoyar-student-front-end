@@ -47,7 +47,6 @@ const SettingScreen = ({ visibalityStatus, changeStatus, user }) => {
   };
 
   const ChangePassWordCaller = (data) => {
-    console.log(data);
     if (data !== "error") {
       if (!data.err) {
         // data.code = 200
@@ -230,8 +229,6 @@ const SettingScreen = ({ visibalityStatus, changeStatus, user }) => {
 
         <View
           style={{
-            marginHorizontal: 16,
-            marginTop: 8,
             marginBottom: 8,
           }}
         >
@@ -280,7 +277,7 @@ const SettingScreen = ({ visibalityStatus, changeStatus, user }) => {
                 <MainTexts.MainContextSubTexts
                   title={
                     user.first_name !== "" || user.last_name !== ""
-                      ? user.first_name + user.last_name
+                      ? user.first_name + " " + user.last_name
                       : "ثبت نشده"
                   }
                 />

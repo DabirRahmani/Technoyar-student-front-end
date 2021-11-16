@@ -27,7 +27,7 @@ const ExamRenderer = ({ list = [] }) => {
             alignItems: "center",
           }}
         >
-          <MainTexts.MainTitleTexts title="آزمون‌ها" />
+          <MainTexts.MainTitleTexts title="آزمون‌های شبانه" />
         </View>
 
         <View

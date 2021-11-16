@@ -20,8 +20,6 @@ const MainPicker = ({ visibalityStatus, changeStatus, dataView }) => {
           <View
             style={{
               marginBottom: 8,
-              marginHorizontal: 16,
-              marginTop: 8,
             }}
           >
             <TouchableOpacity

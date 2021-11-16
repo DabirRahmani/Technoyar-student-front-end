@@ -20,7 +20,7 @@ import LoginRequest from "../backend/auth/login";
 import MainSnack from "../components/MainSnack";
 import Constants from "expo-constants";
 
-export default LoginScreen = () => {
+const LoginScreen = () => {
   const nnavigator = useNavigation();
 
   const response = useRoute().params;
@@ -146,8 +146,8 @@ loginstatus
       }}
     >
       <Image
-        source={require("../assets/loadinglogo.png")}
-        resizeMode="cover"
+        source={require("../assets/bannertp.png")}
+        resizeMode="contain"
         style={{ width: "100%", height: "100%" }}
       />
     </View>
@@ -297,3 +297,5 @@ loginstatus
     </MainScreen>
   );
 };
+
+export default LoginScreen;

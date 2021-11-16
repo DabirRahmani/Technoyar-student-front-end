@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { Image, View } from "react-native";
+import { Image, Platform, View } from "react-native";
 import MainScreen from "./src/screens/mainScreen";
 import LoginScreen from "./src/screens/loginScreen";
 import HomeScreen from "./src/screens/homeScreen";

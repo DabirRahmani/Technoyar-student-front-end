@@ -1,6 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { View, Image, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  RefreshControl,
+} from "react-native";
 import MainBox from "../components/MainBox";
 import { MainIconButton } from "../components/MainButtons";
 import MainPicker from "../components/MainPicker";
@@ -23,8 +29,10 @@ import MessageScreen from "./messageScreen";
 import SettingScreen from "./settingScreen";
 import UserDetailsRequest from "../backend/userDetails";
 import AdminDetailsRequest from "../backend/adminDetails";
+import RefreshRequest from "../backend/auth/refresh";
+import * as SecureStore from "expo-secure-store";
 
-export default HomeScreen = (props) => {
+const HomeScreen = (props) => {
   const nnavigator = useNavigation();
 
   const [modalStatus, setModalStatus] = useState(false);
@@ -54,6 +62,19 @@ export default HomeScreen = (props) => {
   const [adminDetails, setAdminDetails] = useState({});
 
   const [userDetails, setUserDetails] = useState({});
+
+  const [reloadd, setReload] = useState(0);
+
+  useEffect(() => {
+    if (userDetails.role !== undefined && userDetails.role !== "")
+      if (userDetails.role !== 1 && userDetails.role !== 2) {
+        SecureStore.deleteItemAsync("refresh").then(() => {
+          SecureStore.deleteItemAsync("token").then(() => {
+            nnavigator.replace("login", { err: "refreshError" });
+          });
+        });
+      }
+  }, [userDetails]);
 
   /*
 دریافت ریپورت ها و پر کردن متغیر ها
@@ -118,14 +139,26 @@ export default HomeScreen = (props) => {
     }
   };
 
+  const reload = () => {
+    setReload(reloadd + 1);
+    setreportloaded(false);
+  };
+
   useEffect(() => {
-    ReportRequest({ datacaller: getReports });
-    ExplainRequest({ datacaller: getExplains });
-    ExamRequest({ datacaller: getExams });
-    PenaltyRequest({ datacaller: getPenalties });
-    UserDetailsRequest({ datacaller: getUserDetails });
-    AdminDetailsRequest({ datacaller: getAdminDetails });
-  }, []);
+    RefreshRequest({ calllerFunction: Requests });
+  }, [reloadd]);
+
+  const Requests = ({ token, err }) => {
+    if (err) {
+      nnavigator.replace("login", { err: "refreshError" });
+    }
+    ReportRequest({ datacaller: getReports, token: token });
+    ExplainRequest({ datacaller: getExplains, token: token });
+    ExamRequest({ datacaller: getExams, token: token });
+    PenaltyRequest({ datacaller: getPenalties, token: token });
+    UserDetailsRequest({ datacaller: getUserDetails, token: token });
+    AdminDetailsRequest({ datacaller: getAdminDetails, token: token });
+  };
 
   const choosedate = (probs) => {
     setModalStatus(false);
@@ -144,7 +177,11 @@ export default HomeScreen = (props) => {
               choose={choosedate}
               id={d.id}
               date={d.day}
-              present={d.present}
+              present={
+                d.enterTime !== undefined &&
+                d.enterTime !== null &&
+                d.enterTime !== ""
+              }
             />
           ));
         }}
@@ -190,7 +227,7 @@ export default HomeScreen = (props) => {
     if (penalties.length !== 0)
       return (
         <View style={{ padding: 4, marginTop: 16 }}>
-          <PenaltyRenderer list={penalties} />
+          <PenaltyRenderer list={penalties} reload={reload} />
         </View>
       );
 
@@ -321,7 +358,7 @@ export default HomeScreen = (props) => {
               </View>
               <View style={{ flexDirection: "row", width: "100%" }}>
                 <ReportCards
-                  title="فیلم آموزشی"
+                  title="آموزش مجازی"
                   icon="cast-education"
                   color={colors.background}
                   time={ConvertNumberToTime({
@@ -340,14 +377,42 @@ export default HomeScreen = (props) => {
                 </View>
               </View>
 
+              <View
+                style={{
+                  borderRadius: 16,
+                  backgroundColor: colors.darkgrayiconsitems,
+                  margin: 8,
+                  padding: 8,
+                }}
+              >
+                <View
+                  style={{
+                    flexDirection: "row-reverse",
+                    justifyContent: "space-between",
+                    paddingHorizontal: 32,
+                  }}
+                >
+                  <MainTexts.MainTitleTexts title="تعداد تست" />
+                  <MainTexts.MainTitleTexts
+                    title={pickedReport.numberOfTests ?? "0"}
+                  />
+                </View>
+              </View>
+
               <ExamRenderer
-                list={exams.filter((e) => e.report.id === pickedReport.id)}
+                list={exams.filter((e) => {
+                  if (e.report.id === pickedReport.id) return true;
+                  else return false;
+                })}
               />
             </View>
           </View>
 
           <ExplainRenderer
-            list={explains.filter((e) => e.report.id === pickedReport.id)}
+            list={explains.filter((e) => {
+              if (e.report.id === pickedReport.id) return true;
+              else return false;
+            })}
           />
         </View>
 
@@ -415,7 +480,26 @@ export default HomeScreen = (props) => {
 
   return (
     <MainScreen>
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={() => {
+              console.log("dsad");
+
+              reload();
+            }}
+          />
+        }
+        style={{ flex: 1 }}
+      >
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Image
+            style={{ height: 30, marginBottom: 8 }}
+            resizeMode="contain"
+            source={require("./../assets/bannertp.png")}
+          />
+        </View>
         <View>
           <View
             style={{
@@ -440,3 +524,5 @@ export default HomeScreen = (props) => {
     </MainScreen>
   );
 };
+
+export default HomeScreen;

@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "Techno Yar",
-    "slug": "technoyar_front_end",
-    "version": "1.0.2",
+    "name": "Almahdi VIP",
+    "slug": "technoyar_almahdi_student",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./src/assets/loadinglogo.png",
+    "icon": "./src/assets/icon.png",
     "splash": {
-      "image": "./src/assets/loadinglogo.png",
+      "image": "./src/assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#0e1621"
     },
@@ -15,18 +15,19 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.technoyar.studentpancion"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/loadinglogo.png",
+        "foregroundImage": "./src/assets/adaptive.png",
         "backgroundColor": "#0e1621"
       },
       "package": "com.technoyar.studentpancion",
-      "versionCode": 2
+      "versionCode": 1
     },
     "web": {
-      "favicon": "./src/assets/favicon.png"
+      "favicon": "./src/assets/icon.png"
     },
     "description": ""
   }
